@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h1>Smile Classifier</h1>
+    <p>A binary image classifier that detects whether a face is smiling or not.</p>
+
+    <h2>Approach</h2>
+    <ul>
+        <li><b>Framework:</b> scikit-learn</li>
+        <li><b>Model:</b> SVM (linear kernel)</li>
+        <li><b>Preprocessing:</b> OpenCV — grayscale, resized to 64x64, flattened to a feature vector</li>
+        <li><b>Why:</b> Fast to train, lightweight, and effective on small datasets</li>
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h1>Train Model</h1>
+    <form action="/train" method="post" enctype="multipart/form-data">
+        <div class="upload-box">
+            <label>Smiling face images</label>
+            <input type="file" name="smile_files" multiple accept="image/*" required>
+        </div>
+        <div class="upload-box">
+            <label>Non-smiling face images</label>
+            <input type="file" name="non_smile_files" multiple accept="image/*" required>
+        </div>
+        <button type="submit">Train Model</button>
+    </form>
+
+    {% if message %}
+    <div class="result-box">{{ message }}</div>
+    {% endif %}
+</div>
+
+{% if info %}
+<div class="card">
+    <h2>Last Trained Model</h2>
+    <div class="info-box">
+        <div class="info-item">Accuracy<b>{{ info.accuracy }}%</b></div>
+        <div class="info-item">Images used<b>{{ info.image_count }}</b></div>
+        <div class="info-item">Trained on<b>{{ info.trained_at }}</b></div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

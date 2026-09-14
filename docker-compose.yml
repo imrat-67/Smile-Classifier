@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:16
+    container_name: smile-db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - ysdtp_network
+
+  web:
+    build: .
+    container_name: smile-classifier-app
+    restart: always
+    depends_on:
+      - db
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@smile-db:5432/${POSTGRES_DB}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./saved_images:/app/saved_images
+    networks:
+      - ysdtp_network
+
+networks:
+  ysdtp_network:
+    name: YSDTP_B5_AI_30227
+    external: true
+
+volumes:
+  pgdata:

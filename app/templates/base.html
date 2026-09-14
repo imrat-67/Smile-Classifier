@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smile Classifier - 30227</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav>
+        <span class="brand">Smile Classifier</span>
+        <a href="/">Home</a>
+        <a href="/train">Train</a>
+        <a href="/classify">Classify</a>
+        <a href="/history">History</a>
+    </nav>
+
+    {% if error %}
+    <div id="error-toast" class="toast-error">{{ error }}</div>
+    <script>
+        setTimeout(function() {
+            var t = document.getElementById("error-toast");
+            if (t) { t.style.display = "none"; }
+        }, 5000);
+    </script>
+    {% endif %}
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

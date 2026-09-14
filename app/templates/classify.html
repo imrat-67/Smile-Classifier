@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h1>Classify Image</h1>
+    <form action="/classify" method="post" enctype="multipart/form-data">
+        <div class="upload-box">
+            <label>Upload an image</label>
+            <input type="file" name="image_file" accept="image/*" required>
+        </div>
+        <button type="submit">Classify</button>
+    </form>
+
+    {% if prediction %}
+    <div class="result-with-image">
+        <img src="{{ image_url }}" alt="uploaded image">
+        {% if prediction == "smiling" %}
+        <div class="result-box result-success">Result: <b>smiling</b></div>
+        {% else %}
+        <div class="result-box result-danger">Result: <b>not smiling</b></div>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

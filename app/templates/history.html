@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <div class="history-header">
+        <h1>Classification History</h1>
+        <form action="/history/clear" method="post" onsubmit="return confirm('Delete all history? This cannot be undone.');">
+            <button type="submit" class="clear-history-btn">Clear History</button>
+        </form>
+    </div>
+    <table>
+        <tr>
+            <th>Image</th>
+            <th>Class</th>
+            <th>Date-Time</th>
+        </tr>
+        {% for record in records %}
+        <tr>
+            <td><img class="thumbnail" src="/saved_images/{{ record.image_path.split('/')[-1] }}"></td>
+            <td>
+                {% if record.predicted_class == "smiling" %}
+                <span class="badge-smiling">smiling</span>
+                {% else %}
+                <span class="badge-not-smiling">not smiling</span>
+                {% endif %}
+            </td>
+            <td>{{ record.created_at.strftime("%d %b %Y, %I:%M %p") }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
